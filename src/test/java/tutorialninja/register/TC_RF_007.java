@@ -38,7 +38,7 @@ public class TC_RF_007 {
 		driver.findElement(By.xpath("//a[@class='list-group-item'][text()='Register']")).click();
 		Assert.assertTrue(driver.findElement(By.xpath("//ul[@class='breadcrumb']//a[text()='Register']")).isDisplayed());
 		
-		
+		driver.quit();
 		
 		
 	}
