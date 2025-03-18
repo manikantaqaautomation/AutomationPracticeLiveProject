@@ -46,31 +46,24 @@ public class TC_RF_010 {
 		driver.findElement(By.xpath("//input[@name='agree']")).click();
 		// Click on Continue button
 		driver.findElement(By.xpath("//input[@value='Continue']")).click();
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		// Get the screen shot
-		/*
-		 * File screenShot1 =
-		 * driver.findElement(By.xpath("//form[@class='form-horizontal']")).
-		 * getScreenshotAs(OutputType.FILE); FileHandler.copy(screenShot1,new
-		 * File(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png"));
-		 * BufferedImage actualBImg = ImageIO.read(new
-		 * File(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png"));
-		 * BufferedImage expectedBImg = ImageIO.read(new
-		 * File(System.getProperty("user.dir")+"\\Screenshots\\sc1Expected.png"));
-		 * 
-		 * ImageDiffer imgDiffr = new ImageDiffer(); ImageDiff imgDifference =
-		 * imgDiffr.makeDiff(expectedBImg, actualBImg);
-		 * Assert.assertFalse(imgDifference.hasDiff());
-		 * 
-		 * File imageFile = new
-		 * File(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png");
-		 * if(imageFile.exists()) { if (imageFile.delete()) {
-		 * System.out.println("Image deleted successfully: " + new
-		 * File(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png")); } else
-		 * { System.out.println("Failed to delete the image."); } } else {
-		 * System.out.println("Image file not found."); }
-		 */
-		 
+
+		File screenShot1 = driver.findElement(By.xpath("//form[@class='form-horizontal']"))
+				.getScreenshotAs(OutputType.FILE);
+		FileHandler.copy(screenShot1, new File(System.getProperty("user.dir") + "\\Screenshots\\sc1Actual.png"));
+
+		Thread.sleep(2000);
+
+		Assert.assertFalse(compareTwoScreenShots(System.getProperty("user.dir") + "\\Screenshots\\sc1Actual.png",
+				System.getProperty("user.dir") + "\\Screenshots\\sc1Expected.png"));
+
+		Thread.sleep(2000);
+
+		deleteTheImage("sc1Actual.png");
+
+		Thread.sleep(2000);
+
 		// Examine the test data 2
 		driver.findElement(By.id("input-email")).clear();
 		driver.findElement(By.id("input-email")).sendKeys("Test1@");
@@ -82,25 +75,16 @@ public class TC_RF_010 {
 				.getScreenshotAs(OutputType.FILE);
 		FileHandler.copy(screenShot2, new File(System.getProperty("user.dir") + "\\Screenshots\\sc2Actual.png"));
 
-		BufferedImage actualBImgTwo = ImageIO
-				.read(new File(System.getProperty("user.dir") + "\\Screenshots\\sc2Actual.png"));
-		BufferedImage expectedBImgTwo = ImageIO
-				.read(new File(System.getProperty("user.dir") + "\\Screenshots\\sc2Expected.png"));
+		Thread.sleep(2000);
 
-		ImageDiffer imgDiffrTwo = new ImageDiffer();
-		ImageDiff imgDifferenceTwo = imgDiffrTwo.makeDiff(expectedBImgTwo, actualBImgTwo);
-		Assert.assertFalse(imgDifferenceTwo.hasDiff());
+		Assert.assertFalse(compareTwoScreenShots(System.getProperty("user.dir") + "\\Screenshots\\sc2Actual.png",
+				System.getProperty("user.dir") + "\\Screenshots\\sc2Expected.png"));
 
-		File imageFileTwo = new File(System.getProperty("user.dir") + "\\Screenshots\\sc2Actual.png");
-		if (imageFileTwo.exists()) {
-			if (imageFileTwo.delete()) {
-				System.out.println("Second Image deleted successfully: " + "sc2Actual.png");
-			} else {
-				System.out.println("Failed to delete the Second image.");
-			}
-		} else {
-			System.out.println("Second Image file not found.");
-		}
+		Thread.sleep(2000);
+
+		deleteTheImage("sc2Actual.png");
+
+		Thread.sleep(2000);
 
 		// Examine the test data 3
 		driver.findElement(By.id("input-email")).clear();
@@ -108,12 +92,14 @@ public class TC_RF_010 {
 
 		// Click on Continue button
 		driver.findElement(By.xpath("//input[@value='Continue']")).click();
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		// Verify the error message
 		String expectedEmailMessage = "E-Mail Address does not appear to be valid!";
 		String actualEmailMessage = driver.findElement(By.xpath("//input[@id='input-email']/following-sibling::div"))
 				.getText();
 		Assert.assertEquals(expectedEmailMessage, actualEmailMessage);
+
+		Thread.sleep(2000);
 
 		// Examine the test data 4
 		driver.findElement(By.id("input-email")).clear();
@@ -128,24 +114,44 @@ public class TC_RF_010 {
 				.getScreenshotAs(OutputType.FILE);
 		FileHandler.copy(screenShot3, new File(System.getProperty("user.dir") + "\\Screenshots\\sc3Actual.png"));
 
-		BufferedImage actualBImgThree = ImageIO
-				.read(new File(System.getProperty("user.dir") + "\\Screenshots\\sc3Actual.png"));
-		BufferedImage expectedBImgThree = ImageIO
-				.read(new File(System.getProperty("user.dir") + "\\Screenshots\\sc3Expected.png"));
-		ImageDiffer imgDiffrThree = new ImageDiffer();
-		ImageDiff imgDifferenceThree = imgDiffrThree.makeDiff(expectedBImgThree, actualBImgThree);
-		Assert.assertFalse(imgDifferenceThree.hasDiff());
-		File imageFileThree = new File(System.getProperty("user.dir") + "\\Screenshots\\sc3Actual.png");
-		if (imageFileThree.exists()) {
-			if (imageFileThree.delete()) {
-				System.out.println("Thrid Image deleted successfully: " + "sc3Actual.png");
+		Thread.sleep(2000);
+
+		Assert.assertFalse(compareTwoScreenShots(System.getProperty("user.dir") + "\\Screenshots\\sc3Actual.png",
+				System.getProperty("user.dir") + "\\Screenshots\\sc3Expected.png"));
+
+		Thread.sleep(2000);
+
+		deleteTheImage("sc3Actual.png");
+
+		Thread.sleep(2000);
+
+		driver.quit();
+	}
+
+	public boolean compareTwoScreenShots(String actualImagePath, String expectedImagePath) throws IOException {
+
+		BufferedImage actualBImage = ImageIO.read(new File(actualImagePath));
+		BufferedImage ecpectedBImage = ImageIO.read(new File(expectedImagePath));
+
+		ImageDiffer imgDiffr = new ImageDiffer();
+		ImageDiff imgDifference = imgDiffr.makeDiff(actualBImage, ecpectedBImage);
+		return imgDifference.hasDiff();
+
+	}
+
+	public void deleteTheImage(String imageName) {
+
+		File imageFilePath = new File(System.getProperty("user.dir") + "\\Screenshots\\" + imageName);
+		if (imageFilePath.exists()) {
+			if (imageFilePath.delete()) {
+				System.out.println("Image deleted successfully: " + imageName);
 			} else {
-				System.out.println("Failed to delete the Thrid image.");
+				System.out.println("Failed to delete the image.");
 			}
 		} else {
-			System.out.println("Thrid Image file not found.");
+			System.out.println("Image file not found.");
 		}
-		driver.quit();
+
 	}
 
 }
