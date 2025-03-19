@@ -8,6 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import utils.commonUtils;
+
 public class TC_RF_003 {
 
 	@Test
@@ -25,7 +27,7 @@ public class TC_RF_003 {
 				//Enter the mandatory fields
 				driver.findElement(By.id("input-firstname")).sendKeys("Test1");
 				driver.findElement(By.id("input-lastname")).sendKeys("Test2");
-				driver.findElement(By.id("input-email")).sendKeys(generateEmail());
+				driver.findElement(By.id("input-email")).sendKeys(commonUtils.generateEmail());
 				driver.findElement(By.id("input-telephone")).sendKeys("7979787979");
 				driver.findElement(By.id("input-password")).sendKeys("Test@12345");
 				driver.findElement(By.id("input-confirm")).sendKeys("Test@12345");
@@ -71,11 +73,4 @@ public class TC_RF_003 {
 
 	}
 	
-	 public String generateEmail() {
-			
-	 return new Date().toString().replaceAll("\\s","").replaceAll("\\:","")+"@gmail.com";
-
-		
-	} 
-
 }

@@ -10,6 +10,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import utils.commonUtils;
+
 public class TC_RF_011 {
 	
 	WebDriver driver;
@@ -36,7 +38,7 @@ public class TC_RF_011 {
 		// Enter the mandatory fields
 		driver.findElement(By.id("input-firstname")).sendKeys("Test1");
 		driver.findElement(By.id("input-lastname")).sendKeys("Test2");
-		driver.findElement(By.id("input-email")).sendKeys(generateEmail());
+		driver.findElement(By.id("input-email")).sendKeys(commonUtils.generateEmail());
 		driver.findElement(By.id("input-telephone")).sendKeys("abcde");
 		driver.findElement(By.id("input-password")).sendKeys("Test@12345");
 		driver.findElement(By.id("input-confirm")).sendKeys("Test@12345");
@@ -51,10 +53,5 @@ public class TC_RF_011 {
 		Assert.assertEquals(driver.findElement(By.xpath("//input[@id='input-telephone']/following-sibling::div")).getText(), expectedWarningMessage);
 	}
 
-	public String generateEmail() {
-
-		return new Date().toString().replaceAll("\\s", "").replaceAll("\\:", "") + "@gmail.com";
-
-	}
 
 }
