@@ -8,13 +8,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 public class TC_RF_014 {
+	
+	WebDriver driver;
+	
+	@AfterMethod
+	public void tearDown() {
+		
+		driver.quit();
+		
+	}
 	@Test
 	public void verifyMandatoryFieldSymbolColorRegisterAccountPage() {
 		
-		WebDriver driver = new ChromeDriver();
+		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.manage().window().maximize();
 		// Open the URL
@@ -73,7 +83,6 @@ public class TC_RF_014 {
 		Assert.assertEquals(privacyPolicyColor, passwordConfirmColor);
 		
 		
-		driver.quit();
 	}
 
 }
