@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-03-19T13:51:49 IST" name="Default suite" finished-at="2025-03-19T13:52:09 IST" duration-ms="20045">
+  <suite started-at="2025-03-19T14:11:13 IST" name="Default suite" finished-at="2025-03-19T14:11:16 IST" duration-ms="3297">
     <groups>
     </groups>
-    <test started-at="2025-03-19T13:51:49 IST" name="Default test" finished-at="2025-03-19T13:52:09 IST" duration-ms="20045">
-      <class name="tutorialninja.register.TC_RF_012">
-        <test-method signature="verifyRigesteringAccountByUsingKeyBoardCommands()[pri:0, instance:tutorialninja.register.TC_RF_012@49139829]" started-at="2025-03-19T13:51:49 IST" name="verifyRigesteringAccountByUsingKeyBoardCommands" finished-at="2025-03-19T13:52:09 IST" duration-ms="19981" status="PASS">
+    <test started-at="2025-03-19T14:11:13 IST" name="Default test" finished-at="2025-03-19T14:11:16 IST" duration-ms="3297">
+      <class name="tutorialninja.register.TC_RF_013">
+        <test-method signature="verifyPlaceHolderTextInputFieldsInRegisteringAccountPage()[pri:0, instance:tutorialninja.register.TC_RF_013@49139829]" started-at="2025-03-19T14:11:13 IST" name="verifyPlaceHolderTextInputFieldsInRegisteringAccountPage" finished-at="2025-03-19T14:11:16 IST" duration-ms="3255" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- verifyRigesteringAccountByUsingKeyBoardCommands -->
-      </class> <!-- tutorialninja.register.TC_RF_012 -->
+        </test-method> <!-- verifyPlaceHolderTextInputFieldsInRegisteringAccountPage -->
+      </class> <!-- tutorialninja.register.TC_RF_013 -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
