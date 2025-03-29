@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-03-28T18:21:34 IST" name="Default suite" finished-at="2025-03-28T18:21:38 IST" duration-ms="3851">
+  <suite started-at="2025-03-29T12:21:34 IST" name="Default suite" finished-at="2025-03-29T12:21:38 IST" duration-ms="3473">
     <groups>
     </groups>
-    <test started-at="2025-03-28T18:21:34 IST" name="Default test" finished-at="2025-03-28T18:21:38 IST" duration-ms="3851">
-      <class name="tutorialninja.register.TC_RF_021">
-        <test-method signature="verifyRegisteringAccountWithOutSelectingPrivacyPolicy()[pri:0, instance:tutorialninja.register.TC_RF_021@77fbd92c]" started-at="2025-03-28T18:21:35 IST" name="verifyRegisteringAccountWithOutSelectingPrivacyPolicy" finished-at="2025-03-28T18:21:38 IST" duration-ms="3804" status="PASS">
+    <test started-at="2025-03-29T12:21:34 IST" name="Default test" finished-at="2025-03-29T12:21:38 IST" duration-ms="3473">
+      <class name="tutorialninja.register.TC_RF_025">
+        <test-method signature="verifyBreadcrumbURLHeadingTitleOfRegisterAccountPage()[pri:0, instance:tutorialninja.register.TC_RF_025@77fbd92c]" started-at="2025-03-29T12:21:34 IST" name="verifyBreadcrumbURLHeadingTitleOfRegisterAccountPage" finished-at="2025-03-29T12:21:38 IST" duration-ms="3412" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- verifyRegisteringAccountWithOutSelectingPrivacyPolicy -->
-      </class> <!-- tutorialninja.register.TC_RF_021 -->
+        </test-method> <!-- verifyBreadcrumbURLHeadingTitleOfRegisterAccountPage -->
+      </class> <!-- tutorialninja.register.TC_RF_025 -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

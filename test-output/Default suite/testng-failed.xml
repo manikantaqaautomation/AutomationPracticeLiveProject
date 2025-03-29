@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tutorialninja.register.TC_RF_021">
+      <class name="tutorialninja.register.TC_RF_023">
         <methods>
-          <include name="verifyRegisteringAccountWithOutSelectingPrivacyPolicy"/>
+          <include name="verifyWorkingOfEveryLinkOnRegisteringAccountPage"/>
         </methods>
-      </class> <!-- tutorialninja.register.TC_RF_021 -->
+      </class> <!-- tutorialninja.register.TC_RF_023 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
