@@ -35,4 +35,19 @@ public static boolean compareTwoScreenshots(String actualImagePath, String expec
 
 }
 
+public static void deleteTheImage(String imageName) {
+
+	File imageFilePath = new File(System.getProperty("user.dir") + "\\Screenshots\\" + imageName);
+	if (imageFilePath.exists()) {
+		if (imageFilePath.delete()) {
+			System.out.println("Image deleted successfully: " + imageName);
+		} else {
+			System.out.println("Failed to delete the image.");
+		}
+	} else {
+		System.out.println("Image file not found.");
+	}
+
+}
+
 }
