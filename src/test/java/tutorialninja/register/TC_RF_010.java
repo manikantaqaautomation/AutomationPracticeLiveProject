@@ -11,8 +11,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
@@ -20,10 +26,23 @@ import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 
 public class TC_RF_010 {
 
-	@Test
-	public void verifyRegisteringAccountByProvidingInvalidEmail() throws IOException, InterruptedException {
+	WebDriver driver;
 
-		WebDriver driver = new ChromeDriver();
+	@BeforeMethod
+
+	public void setup() {
+		String browserName = "firefox";
+		if (browserName.equals("chrome")) {
+			driver = new ChromeDriver();
+		} else if (browserName.equals("firefox")) {
+			driver = new FirefoxDriver();
+		} else if (browserName.equals("edge")) {
+			driver = new EdgeDriver();
+		} else if (browserName.equals("opera")) {
+			driver = new SafariDriver();
+		} else if (browserName.equals("ie")) {
+			driver = new InternetExplorerDriver();
+		}
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.manage().window().maximize();
 		// Open the URL
@@ -34,6 +53,20 @@ public class TC_RF_010 {
 		// Select the option from 'My Account' drop down menu
 		driver.findElement(By.xpath("//a[text()='Register']")).click();
 		// User able to see Register Account page
+	}
+
+	@AfterTest
+	public void tearDown() {
+		if (driver != null) {
+			driver.quit();
+		}
+	}
+
+	@Test
+	public void verifyRegisteringAccountByProvidingInvalidEmail() throws IOException, InterruptedException {
+
+		String browserName = "firefox";
+
 		// Enter the mandatory fields
 		driver.findElement(By.id("input-firstname")).sendKeys("Test1");
 		driver.findElement(By.id("input-lastname")).sendKeys("Test2");
@@ -48,21 +81,32 @@ public class TC_RF_010 {
 		driver.findElement(By.xpath("//input[@value='Continue']")).click();
 		Thread.sleep(2000);
 		// Get the screen shot
-
-		File screenShot1 = driver.findElement(By.xpath("//form[@class='form-horizontal']"))
-				.getScreenshotAs(OutputType.FILE);
-		FileHandler.copy(screenShot1, new File(System.getProperty("user.dir") + "\\Screenshots\\sc1Actual.png"));
-
-		Thread.sleep(2000);
-
-		Assert.assertFalse(compareTwoScreenShots(System.getProperty("user.dir") + "\\Screenshots\\sc1Actual.png",
-				System.getProperty("user.dir") + "\\Screenshots\\sc1Expected.png"));
-
-		Thread.sleep(2000);
-
-		deleteTheImage("sc1Actual.png");
-
-		Thread.sleep(2000);
+		System.out.println(driver.findElement(By.id("input-email")).getDomProperty("validationMessage"));
+		if (browserName.equals("chrome")) {
+			Assert.assertEquals(driver.findElement(By.id("input-email")).getDomProperty("validationMessage"),
+					"Please include an '@' in the email address. 'Test1' is missing an '@'.");
+		} else if (browserName.equals("firefox")) {
+			Assert.assertEquals(driver.findElement(By.id("input-email")).getDomProperty("validationMessage"),
+					"Please enter an email address.");
+		}
+		/*
+		 * File screenShot1 =
+		 * driver.findElement(By.xpath("//form[@class='form-horizontal']"))
+		 * .getScreenshotAs(OutputType.FILE); FileHandler.copy(screenShot1, new
+		 * File(System.getProperty("user.dir") + "\\Screenshots\\sc1Actual.png"));
+		 * 
+		 * Thread.sleep(2000);
+		 * 
+		 * Assert.assertFalse(compareTwoScreenShots(System.getProperty("user.dir") +
+		 * "\\Screenshots\\sc1Actual.png", System.getProperty("user.dir") +
+		 * "\\Screenshots\\sc1Expected.png"));
+		 * 
+		 * Thread.sleep(2000);
+		 * 
+		 * deleteTheImage("sc1Actual.png");
+		 * 
+		 * Thread.sleep(2000);
+		 */
 
 		// Examine the test data 2
 		driver.findElement(By.id("input-email")).clear();
@@ -70,21 +114,32 @@ public class TC_RF_010 {
 		// Click on Continue button
 		driver.findElement(By.xpath("//input[@value='Continue']")).click();
 		Thread.sleep(3000);
-		// Get the screen shot
-		File screenShot2 = driver.findElement(By.xpath("//form[@class='form-horizontal']"))
-				.getScreenshotAs(OutputType.FILE);
-		FileHandler.copy(screenShot2, new File(System.getProperty("user.dir") + "\\Screenshots\\sc2Actual.png"));
-
-		Thread.sleep(2000);
-
-		Assert.assertFalse(compareTwoScreenShots(System.getProperty("user.dir") + "\\Screenshots\\sc2Actual.png",
-				System.getProperty("user.dir") + "\\Screenshots\\sc2Expected.png"));
-
-		Thread.sleep(2000);
-
-		deleteTheImage("sc2Actual.png");
-
-		Thread.sleep(2000);
+		System.out.println(driver.findElement(By.id("input-email")).getDomProperty("validationMessage"));
+		if (browserName.equals("chrome")) {
+			Assert.assertEquals(driver.findElement(By.id("input-email")).getDomProperty("validationMessage"),
+					"Please enter a part following '@'. 'Test1@' is incomplete.");
+		} else if (browserName.equals("firefox")) {
+			Assert.assertEquals(driver.findElement(By.id("input-email")).getDomProperty("validationMessage"),
+					"Please enter an email address.");
+		}
+		/*
+		 * // Get the screen shot File screenShot2 =
+		 * driver.findElement(By.xpath("//form[@class='form-horizontal']"))
+		 * .getScreenshotAs(OutputType.FILE); FileHandler.copy(screenShot2, new
+		 * File(System.getProperty("user.dir") + "\\Screenshots\\sc2Actual.png"));
+		 * 
+		 * Thread.sleep(2000);
+		 * 
+		 * Assert.assertFalse(compareTwoScreenShots(System.getProperty("user.dir") +
+		 * "\\Screenshots\\sc2Actual.png", System.getProperty("user.dir") +
+		 * "\\Screenshots\\sc2Expected.png"));
+		 * 
+		 * Thread.sleep(2000);
+		 * 
+		 * deleteTheImage("sc2Actual.png");
+		 * 
+		 * Thread.sleep(2000);
+		 */
 
 		// Examine the test data 3
 		driver.findElement(By.id("input-email")).clear();
@@ -93,13 +148,26 @@ public class TC_RF_010 {
 		// Click on Continue button
 		driver.findElement(By.xpath("//input[@value='Continue']")).click();
 		Thread.sleep(2000);
-		// Verify the error message
-		String expectedEmailMessage = "E-Mail Address does not appear to be valid!";
-		String actualEmailMessage = driver.findElement(By.xpath("//input[@id='input-email']/following-sibling::div"))
-				.getText();
-		Assert.assertEquals(expectedEmailMessage, actualEmailMessage);
-
-		Thread.sleep(2000);
+		
+		/*
+		 * System.out.println(driver.findElement(By.id("input-email")).getDomProperty(
+		 * "validationMessage")); if (browserName.equals("chrome")) {
+		 * Assert.assertEquals(driver.findElement(By.id("input-email")).getDomProperty(
+		 * "validationMessage"),
+		 * "Please include an '@' in the email address. 'Test1' is missing an '@'."); }
+		 * else if (browserName.equals("firefox")) {
+		 * Assert.assertEquals(driver.findElement(By.id("input-email")).getDomProperty(
+		 * "validationMessage"), "Please enter an email address."); }
+		 */
+		
+		  // Verify the error message 
+		  String expectedEmailMessage = "E-Mail Address does not appear to be valid!"; String actualEmailMessage =
+		  driver.findElement(By.xpath(
+		  "//input[@id='input-email']/following-sibling::div")) .getText();
+		  Assert.assertEquals(expectedEmailMessage, actualEmailMessage);
+		  
+		  Thread.sleep(2000);
+		 
 
 		// Examine the test data 4
 		driver.findElement(By.id("input-email")).clear();
@@ -108,24 +176,35 @@ public class TC_RF_010 {
 		// Click on Continue button
 		driver.findElement(By.xpath("//input[@value='Continue']")).click();
 		Thread.sleep(3000);
+		
+		System.out.println(driver.findElement(By.id("input-email")).getDomProperty("validationMessage"));
+		if (browserName.equals("chrome")) {
+			Assert.assertEquals(driver.findElement(By.id("input-email")).getDomProperty("validationMessage"),
+					"'.' is used at a wrong position in 'gmail.'.");
+		} else if (browserName.equals("firefox")) {
+			Assert.assertEquals(driver.findElement(By.id("input-email")).getDomProperty("validationMessage"),
+					"Please enter an email address.");
+		}
 
-		// Get the screen shot
-		File screenShot3 = driver.findElement(By.xpath("//form[@class='form-horizontal']"))
-				.getScreenshotAs(OutputType.FILE);
-		FileHandler.copy(screenShot3, new File(System.getProperty("user.dir") + "\\Screenshots\\sc3Actual.png"));
+		/*
+		 * // Get the screen shot File screenShot3 =
+		 * driver.findElement(By.xpath("//form[@class='form-horizontal']"))
+		 * .getScreenshotAs(OutputType.FILE); FileHandler.copy(screenShot3, new
+		 * File(System.getProperty("user.dir") + "\\Screenshots\\sc3Actual.png"));
+		 * 
+		 * Thread.sleep(2000);
+		 * 
+		 * Assert.assertFalse(compareTwoScreenShots(System.getProperty("user.dir") +
+		 * "\\Screenshots\\sc3Actual.png", System.getProperty("user.dir") +
+		 * "\\Screenshots\\sc3Expected.png"));
+		 * 
+		 * Thread.sleep(2000);
+		 * 
+		 * deleteTheImage("sc3Actual.png");
+		 * 
+		 * Thread.sleep(2000);
+		 */
 
-		Thread.sleep(2000);
-
-		Assert.assertFalse(compareTwoScreenShots(System.getProperty("user.dir") + "\\Screenshots\\sc3Actual.png",
-				System.getProperty("user.dir") + "\\Screenshots\\sc3Expected.png"));
-
-		Thread.sleep(2000);
-
-		deleteTheImage("sc3Actual.png");
-
-		Thread.sleep(2000);
-
-		driver.quit();
 	}
 
 	public boolean compareTwoScreenShots(String actualImagePath, String expectedImagePath) throws IOException {

@@ -10,8 +10,13 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import utils.commonUtils;
@@ -22,6 +27,39 @@ public class TC_RF_015 {
 	
 	WebDriver driver;
 
+	@BeforeMethod
+
+	public void setup() {
+		String browserName = "chrome";
+		if (browserName.equals("chrome")) {
+			driver = new ChromeDriver();
+		} else if (browserName.equals("firefox")) {
+			driver = new FirefoxDriver();
+		} else if (browserName.equals("edge")) {
+			driver = new EdgeDriver();
+		} else if (browserName.equals("opera")) {
+			driver = new SafariDriver();
+		} else if (browserName.equals("ie")) {
+			driver = new InternetExplorerDriver();
+		}
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		driver.manage().window().maximize();
+		// Open the URL
+		driver.get("https://tutorialsninja.com/demo/");
+		// Test Step-1
+		// Click on 'My Account' drop down menu
+		driver.findElement(By.xpath("//span[text()='My Account']")).click();
+		// Select the option from 'My Account' drop down menu
+		driver.findElement(By.xpath("//a[text()='Register']")).click();
+		// User able to see Register Account page
+	}
+
+	/*
+	 * @AfterMethod public void tearDown() { if (driver != null) { driver.quit(); }
+	 * }
+	 */
+
 	private static final String url = "jdbc:mysql://localhost:3306/opencart_db"; // Change "mydatabase" to your DB name
 	private static final String user = "root"; // Default MySQL username
 	private static final String password = null; // Default is empty (change if you set a password)
@@ -31,26 +69,8 @@ public class TC_RF_015 {
 	String emailStoredInDataBase = null;
 	
 	
-	@AfterMethod
-	public void TearDown() {
-		
-		driver.quit();
-	}
-
 	@Test
 	public void verifyDataBaseTestingofRegisteringAccount() {
-
-		driver = new ChromeDriver();
-
-		driver.manage().window().maximize();
-
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-
-		driver.get("http://localhost/opencart/");
-
-		driver.findElement(By.xpath("//span[text()='My Account']")).click();
-
-		driver.findElement(By.linkText("Register")).click();
 
 		String firstNameInputData = "Manikanta";
 
@@ -63,16 +83,20 @@ public class TC_RF_015 {
 		String emailInputData = commonUtils.generateEmail();
 
 		driver.findElement(By.id("input-email")).sendKeys(emailInputData);
+		
+		driver.findElement(By.id("input-telephone")).sendKeys("7979787979");
 
 		String passwordInputData = "123456";
 
 		driver.findElement(By.id("input-password")).sendKeys(passwordInputData);
+		
+		driver.findElement(By.id("input-confirm")).sendKeys(passwordInputData);
 
-		driver.findElement(By.id("input-newsletter")).click();
+		driver.findElement(By.xpath("//input[@name='newsletter'][@value='1']")).click();
 
 		driver.findElement(By.name("agree")).click();
 
-		driver.findElement(By.xpath("//button[text()='Continue']")).click();
+		driver.findElement(By.xpath("//input[@value='Continue']")).click();
 
 		Connection connection = null;
 

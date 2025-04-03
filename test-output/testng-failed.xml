@@ -5,7 +5,8 @@
     <classes>
       <class name="tutorialninja.register.TC_RF_027">
         <methods>
-          <include name="verifyRegisteringAccountInDifferentTestEnvironments" invocation-numbers="0 1 2"/>
+          <include name="verifyRegisteringAccountInDifferentTestEnvironments"/>
+          <include name="setup"/>
           <include name="tearDown"/>
         </methods>
       </class> <!-- tutorialninja.register.TC_RF_027 -->
