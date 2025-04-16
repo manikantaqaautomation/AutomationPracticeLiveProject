@@ -1,6 +1,7 @@
 package tutorialninja.register;
 
 import java.time.Duration;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,32 +15,19 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import base.Base;
 import utils.commonUtils;
 
-public class TC_RF_021 {
+public class TC_RF_021 extends Base{
 	
 	WebDriver driver;
+	Properties prop;
 
 	@BeforeMethod
 
 	public void setup() {
-		String browserName = "chrome";
-		if (browserName.equals("chrome")) {
-			driver = new ChromeDriver();
-		} else if (browserName.equals("firefox")) {
-			driver = new FirefoxDriver();
-		} else if (browserName.equals("edge")) {
-			driver = new EdgeDriver();
-		} else if (browserName.equals("opera")) {
-			driver = new SafariDriver();
-		} else if (browserName.equals("ie")) {
-			driver = new InternetExplorerDriver();
-		}
-
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.manage().window().maximize();
-		// Open the URL
-		driver.get("https://tutorialsninja.com/demo/");
+		driver = openBrowserAndApplication();
+		prop = commonUtils.loadProperties();
 		// Test Step-1
 		// Click on 'My Account' drop down menu
 		driver.findElement(By.xpath("//span[text()='My Account']")).click();
@@ -60,16 +48,16 @@ public class TC_RF_021 {
 	@Test
 	public void verifyRegisteringAccountWithOutSelectingPrivacyPolicy() {
 		
-		String enterFirstName ="Manikanta";
+		String enterFirstName =prop.getProperty("firstName");
 		driver.findElement(By.id("input-firstname")).sendKeys(enterFirstName);
-		String enterLastName ="Chodapaneedi";
+		String enterLastName =prop.getProperty("lastName");
 		driver.findElement(By.id("input-lastname")).sendKeys(enterLastName);
 		String enterEmail = commonUtils.generateEmail();
 		driver.findElement(By.id("input-email")).sendKeys(enterEmail);
-		String enterTelephone = "123456789";
+		String enterTelephone = prop.getProperty("telephoneNumber");
 		driver.findElement(By.id("input-telephone")).sendKeys(enterTelephone);
-		driver.findElement(By.id("input-password")).sendKeys("12345678");
-		driver.findElement(By.id("input-confirm")).sendKeys("12345678");
+		driver.findElement(By.id("input-password")).sendKeys(prop.getProperty("validPassword"));
+		driver.findElement(By.id("input-confirm")).sendKeys(prop.getProperty("validPassword"));
 		driver.findElement(By.xpath("//input[@name='newsletter'][@value='1']")).click();
 		driver.findElement(By.xpath("//input[@value='Continue']")).click();
 		

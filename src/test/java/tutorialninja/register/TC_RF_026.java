@@ -1,7 +1,6 @@
 package tutorialninja.register;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;
 
@@ -20,32 +19,17 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import base.Base;
 import utils.commonUtils;
 
-public class TC_RF_026 {
+public class TC_RF_026 extends Base{
 
 	WebDriver driver;
 
 	@BeforeMethod
 
 	public void setup() {
-		String browserName = "chrome";
-		if (browserName.equals("chrome")) {
-			driver = new ChromeDriver();
-		} else if (browserName.equals("firefox")) {
-			driver = new FirefoxDriver();
-		} else if (browserName.equals("edge")) {
-			driver = new EdgeDriver();
-		} else if (browserName.equals("opera")) {
-			driver = new SafariDriver();
-		} else if (browserName.equals("ie")) {
-			driver = new InternetExplorerDriver();
-		}
-
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.manage().window().maximize();
-		// Open the URL
-		driver.get("https://tutorialsninja.com/demo/");
+		driver = openBrowserAndApplication();
 		// Test Step-1
 		// Click on 'My Account' drop down menu
 		driver.findElement(By.xpath("//span[text()='My Account']")).click();

@@ -1,6 +1,7 @@
 package tutorialninja.register;
 
 import java.time.Duration;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,31 +15,18 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import base.Base;
 import utils.commonUtils;
 
-public class TC_RF_024 {
+public class TC_RF_024 extends Base{
 	WebDriver driver;
+	Properties prop;
 
 	@BeforeMethod
 
 	public void setup() {
-		String browserName = "chrome";
-		if (browserName.equals("chrome")) {
-			driver = new ChromeDriver();
-		} else if (browserName.equals("firefox")) {
-			driver = new FirefoxDriver();
-		} else if (browserName.equals("edge")) {
-			driver = new EdgeDriver();
-		} else if (browserName.equals("opera")) {
-			driver = new SafariDriver();
-		} else if (browserName.equals("ie")) {
-			driver = new InternetExplorerDriver();
-		}
-
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.manage().window().maximize();
-		// Open the URL
-		driver.get("https://tutorialsninja.com/demo/");
+		driver = openBrowserAndApplication();
+		prop = commonUtils.loadProperties();
 		// Test Step-1
 		// Click on 'My Account' drop down menu
 		driver.findElement(By.xpath("//span[text()='My Account']")).click();
@@ -53,22 +41,24 @@ public class TC_RF_024 {
 			driver.quit();
 		}
 	}
+
 	@Test
 	public void verifyRegisteringAccountWithoutEnteringPasswordIntoPasswordConfirmField() {
-		
-		
-		driver.findElement(By.id("input-firstname")).sendKeys("Arun");
-		driver.findElement(By.id("input-lastname")).sendKeys("Motoori");
+
+		driver.findElement(By.id("input-firstname")).sendKeys(prop.getProperty("firstName"));
+		driver.findElement(By.id("input-lastname")).sendKeys(prop.getProperty("lastName"));
 		driver.findElement(By.id("input-email")).sendKeys(commonUtils.generateEmail());
-		driver.findElement(By.id("input-telephone")).sendKeys("1234567890");
-		driver.findElement(By.id("input-password")).sendKeys("12345");
+		driver.findElement(By.id("input-telephone")).sendKeys(prop.getProperty("telephoneNumber"));
+		driver.findElement(By.id("input-password")).sendKeys(prop.getProperty("validPassword"));
 		driver.findElement(By.xpath("//input[@name='newsletter'][@value='1']")).click();
 		driver.findElement(By.name("agree")).click();
 		driver.findElement(By.xpath("//input[@value='Continue']")).click();
-		
+
 		String expectedWarning = "Password confirmation does not match password!";
-		Assert.assertEquals(driver.findElement(By.xpath("//input[@id='input-confirm']/following-sibling::div")).getText(), expectedWarning);
-		
+		Assert.assertEquals(
+				driver.findElement(By.xpath("//input[@id='input-confirm']/following-sibling::div")).getText(),
+				expectedWarning);
+
 	}
 
 }

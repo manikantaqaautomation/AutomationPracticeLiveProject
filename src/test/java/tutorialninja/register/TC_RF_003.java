@@ -1,26 +1,23 @@
 package tutorialninja.register;
 
-import java.time.Duration;
-import java.util.Date;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import base.Base;
 import utils.commonUtils;
 
-public class TC_RF_003 {
+public class TC_RF_003 extends Base{
 
 	WebDriver driver;
 
+	Properties prop;
+	
 	@AfterMethod
 	public void teardown() {
 		if (driver != null) {
@@ -31,22 +28,8 @@ public class TC_RF_003 {
 	@BeforeMethod
 
 	public void setup() {
-		String browserName = "chrome";
-		if (browserName.equals("chrome")) {
-			driver = new ChromeDriver();
-		} else if (browserName.equals("firefox")) {
-			driver = new FirefoxDriver();
-		} else if (browserName.equals("edge")) {
-			driver = new EdgeDriver();
-		} else if (browserName.equals("opera")) {
-			driver = new SafariDriver();
-		} else if (browserName.equals("ie")) {
-			driver = new InternetExplorerDriver();
-		}
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.manage().window().maximize();
-		// Open the URL
-		driver.get("https://tutorialsninja.com/demo/");
+		driver = openBrowserAndApplication();
+		prop = commonUtils.loadProperties();
 		// Test Step-1
 		// Click on 'My Account' drop down menu
 		driver.findElement(By.xpath("//span[text()='My Account']")).click();
@@ -58,12 +41,12 @@ public class TC_RF_003 {
 	@Test
 	public void verifyRegisterWithAllFields() {
 		// Enter the mandatory fields
-		driver.findElement(By.id("input-firstname")).sendKeys("Test1");
-		driver.findElement(By.id("input-lastname")).sendKeys("Test2");
+		driver.findElement(By.id("input-firstname")).sendKeys(prop.getProperty("firstName"));
+		driver.findElement(By.id("input-lastname")).sendKeys(prop.getProperty("lastName"));
 		driver.findElement(By.id("input-email")).sendKeys(commonUtils.generateEmail());
-		driver.findElement(By.id("input-telephone")).sendKeys("7979787979");
-		driver.findElement(By.id("input-password")).sendKeys("Test@12345");
-		driver.findElement(By.id("input-confirm")).sendKeys("Test@12345");
+		driver.findElement(By.id("input-telephone")).sendKeys(prop.getProperty("telephoneNumber"));
+		driver.findElement(By.id("input-password")).sendKeys(prop.getProperty("validPassword"));
+		driver.findElement(By.id("input-confirm")).sendKeys(prop.getProperty("validPassword"));
 		// Click on Newsletter option
 		driver.findElement(By.xpath("//input[@name='newsletter'][@value='1']")).click();
 		// Click Agree check box

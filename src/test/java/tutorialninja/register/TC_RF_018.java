@@ -3,6 +3,7 @@ package tutorialninja.register;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -21,32 +22,19 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import base.Base;
 import utils.commonUtils;
 
-public class TC_RF_018 {
+public class TC_RF_018 extends Base {
 
 	WebDriver driver;
+	Properties prop;
 
 	@BeforeMethod
 
 	public void setup() {
-		String browserName = "chrome";
-		if (browserName.equals("chrome")) {
-			driver = new ChromeDriver();
-		} else if (browserName.equals("firefox")) {
-			driver = new FirefoxDriver();
-		} else if (browserName.equals("edge")) {
-			driver = new EdgeDriver();
-		} else if (browserName.equals("opera")) {
-			driver = new SafariDriver();
-		} else if (browserName.equals("ie")) {
-			driver = new InternetExplorerDriver();
-		}
-
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.manage().window().maximize();
-		// Open the URL
-		driver.get("https://tutorialsninja.com/demo/");
+		driver = openBrowserAndApplication();
+		prop = commonUtils.loadProperties();
 		// Test Step-1
 		// Click on 'My Account' drop down menu
 		driver.findElement(By.xpath("//span[text()='My Account']")).click();
@@ -230,8 +218,9 @@ public class TC_RF_018 {
 		emailField.clear();
 		emailField.sendKeys("abcdefghijklmnopabcdefghijklmnopqabcdefghijklmnopabcdefghijklmno@gmail.com");
 		continueButton.click();
+
 		try {
-			Assert.assertFalse(
+			Assert.assertTrue(
 					driver.findElement(By.xpath("//input[@id='input-email']/following-sibling::div")).isDisplayed());
 		} catch (NoSuchElementException e) {
 			Assert.assertTrue(true);
@@ -441,14 +430,15 @@ public class TC_RF_018 {
 		passwordField.clear();
 		passwordField.sendKeys("abcdefghijabcdefghijk");
 		continueButton.click();
-		boolean state=false;
+		boolean state = false;
 		try {
-		String actualWarning = driver.findElement(By.xpath("//input[@id='input-password']/following-sibling::div")).getText();
-		if(actualWarning.equals(expectedWarning)) {
-			state = true;
-		}
-		}catch(NoSuchElementException e) {
-	       state = false;
+			String actualWarning = driver.findElement(By.xpath("//input[@id='input-password']/following-sibling::div"))
+					.getText();
+			if (actualWarning.equals(expectedWarning)) {
+				state = true;
+			}
+		} catch (NoSuchElementException e) {
+			state = false;
 		}
 		Assert.assertTrue(state);
 		String actualConfirmPasswordFieldHeight = driver.findElement(By.id("input-confirm")).getCssValue("height");
@@ -467,7 +457,6 @@ public class TC_RF_018 {
 		Assert.assertFalse(commonUtils.compareTwoScreenshots(
 				System.getProperty("user.dir") + "\\Screenshots\\registerPageActualAligment.png",
 				System.getProperty("user.dir") + "\\Screenshots\\registerPageExpectedAligment.png"));
-
 
 	}
 
