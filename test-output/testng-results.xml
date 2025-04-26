@@ -2,24 +2,24 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-04-16T19:18:33 IST" name="Default suite" finished-at="2025-04-16T19:18:38 IST" duration-ms="5229">
+  <suite started-at="2025-04-26T10:11:02 IST" name="Default suite" finished-at="2025-04-26T10:11:14 IST" duration-ms="12075">
     <groups>
     </groups>
-    <test started-at="2025-04-16T19:18:33 IST" name="Default test" finished-at="2025-04-16T19:18:38 IST" duration-ms="5229">
-      <class name="tutorialninja.register.TC_RF_001">
-        <test-method is-config="true" signature="setup()[pri:0, instance:tutorialninja.register.TC_RF_001@3c19aaa5]" started-at="2025-04-16T19:18:33 IST" name="setup" finished-at="2025-04-16T19:18:36 IST" duration-ms="3464" status="PASS">
+    <test started-at="2025-04-26T10:11:02 IST" name="Default test" finished-at="2025-04-26T10:11:14 IST" duration-ms="12075">
+      <class name="tutorialninja.tests.Register">
+        <test-method is-config="true" signature="setup()[pri:0, instance:tutorialninja.tests.Register@235834f2]" started-at="2025-04-26T10:11:02 IST" name="setup" finished-at="2025-04-26T10:11:11 IST" duration-ms="9437" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="verifyRegisterWithMandatoryFields()[pri:0, instance:tutorialninja.register.TC_RF_001@3c19aaa5]" started-at="2025-04-16T19:18:36 IST" name="verifyRegisterWithMandatoryFields" finished-at="2025-04-16T19:18:38 IST" duration-ms="1582" status="PASS">
+        <test-method signature="verifyRegistringAccountBySubscribeNewsLetter()[pri:4, instance:tutorialninja.tests.Register@235834f2]" started-at="2025-04-26T10:11:11 IST" name="verifyRegistringAccountBySubscribeNewsLetter" finished-at="2025-04-26T10:11:14 IST" duration-ms="2331" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- verifyRegisterWithMandatoryFields -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:tutorialninja.register.TC_RF_001@3c19aaa5]" started-at="2025-04-16T19:18:38 IST" name="teardown" finished-at="2025-04-16T19:18:38 IST" duration-ms="144" status="PASS">
+        </test-method> <!-- verifyRegistringAccountBySubscribeNewsLetter -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:tutorialninja.tests.Register@235834f2]" started-at="2025-04-26T10:11:14 IST" name="teardown" finished-at="2025-04-26T10:11:14 IST" duration-ms="246" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- teardown -->
-      </class> <!-- tutorialninja.register.TC_RF_001 -->
+      </class> <!-- tutorialninja.tests.Register -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

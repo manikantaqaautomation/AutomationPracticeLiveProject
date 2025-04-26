@@ -28,6 +28,9 @@ public class AccountSuccessPage {
 	@FindBy(xpath="//a[text()='Continue']")
 	private WebElement continueButton;
 	
+	@FindBy(xpath="//ul[@class='breadcrumb']//a[text()='Success']")
+	private WebElement accountSuccessPageBreadCrum;
+	
 	public boolean isLogoutOptionDisplayed() {
 		
 		return logoutOption.isDisplayed();
@@ -47,6 +50,10 @@ public class AccountSuccessPage {
 	public AccountPage clickOnContinueButton() {
 		continueButton.click();
 		return new AccountPage(driver);
+	}
+	
+	public boolean didWeNavigateAccountSuccessPage() {
+		return accountSuccessPageBreadCrum.isDisplayed();
 	}
 
 }
